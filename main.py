@@ -180,5 +180,4 @@ if __name__ == "__main__":
     if (QDialog.Accepted == True):
         window = MainWindow()
         window.show()
-        # window.ConnectionDB().load_data() # Não precisa chamar isso aqui.
     sys.exit(app.exec_())

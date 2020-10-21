@@ -61,17 +61,15 @@ class LoginForm(QDialog):
         layout.addWidget(self.QBtn)
         self.setLayout(layout)
 
-    # Checagem de password, a ser corrigida para verificar os passwords e usernames no DB.
     def check_password(self):
         msg = QMessageBox()
-        msg.setFixedSize(130, 100)
         
+        # Tem que tirar esse usuário hardcoded e cadastrar e puxar de um DB!!
         if self.lineEdit_username.text() == "Username" and self.lineEdit_password.text() == "000":
             msg.setWindowIcon(QIcon("icon/done.png"))
             msg.setWindowTitle("Efetuado")
             msg.setText("Sucesso")
             msg.exec_()
-            msg.close()
         else:
             msg.setWindowIcon(QIcon("icon/failure.png"))
             msg.setWindowTitle("Não efetuado")

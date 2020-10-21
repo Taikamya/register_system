@@ -38,14 +38,14 @@ class ConnectionDB():
                                     semester INTEGER,
                                     telephone INTEGER,
                                     address TEXT)''')
-        # self.db_cursor.close()
-        # self.conn.close()
+        # self.db_cursor.close() --> Não pode fechar o cursor
+        # self.conn.close() --> Não pode fechar o DB
 
     # Função responsável por manter o painel com os dados atualizados do sistema.
     def load_one_student(self, number):
         result = self.db_cursor.execute('''SELECT * FROM students''')
-        self.db_cursor.rowcount(0)
-        # self.tableWidget.setRowCount(0)
+        self.db_cursor.rowcount(0) # -- Também dá erro, mas deixa funcionar até certo momento.
+        # self.tableWidget.setRowCount(0)  --> Isso tinha que estar aqui mesmo? Dá erro.
         for row_number, row_data in enumerate(result):
             self.tableWidget.insertRow(row_number)
             for column_number, data in enumerate(row_data):
@@ -56,7 +56,7 @@ class ConnectionDB():
     # Função responsável por realizar a pesquisa no sistema.
     def select_one_student(self, number):
         try:
-            result = self.db_cursor.execute("SELECT * FROM students WHERE row =?", str(number))
+            result = self.db_cursor.execute("SELECT * FROM students WHERE row =?", str(number)) # Consertada sintaxe // Não pode transformar em str o que é validado como int
             row = result.fetchone()
             search_result = "Nº INSCRIÇÃO: " + str(row[0]) + "\n" + "NOME: " + str(row[1]) + "\n" + "CURSO: " + str(row[2]) + "\n" + "SEMESTRE: " + str(row[3]) + "\n" + "TELEFONE" + str(row[4]) + "\n" + "ENDEREÇO" + str(row[5])
             QMessageBox.information(QMessageBox(), "Pesquisa realizada com sucesso", search_result)
@@ -69,7 +69,7 @@ class ConnectionDB():
     # Função responsável por deletar a informação do sistema.
     def delete_one_student(self, number):
         try:
-            result = self.db_cursor.execute("DELETE FROM students WHERE row =?", str(number))
+            result = self.db_cursor.execute("DELETE FROM students WHERE row =?", str(number)) # Consertada sintaxe // Não pode transformar em str o que é validado como int
             self.conn.commit()
             self.db_cursor.close()
             self.conn.close()
