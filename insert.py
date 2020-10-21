@@ -1,11 +1,12 @@
+import sys
+import os
+import time
+
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+# from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtPrintSupport import *
-import sys
-import time
-import os
 
 
 """
@@ -14,13 +15,13 @@ import os
     - def: __init__
         :param: self
         :param: *args
-        :param: **kargs
+        :param: **kwargs
     - def: add_student
         :param: self
 """
 class InsertDialog(QDialog):
-    def __init__(self, *args, **kargs):
-        super(InsertDialog, self).__init__(*args, **kargs)
+    def __init__(self, *args, **kwargs):
+        super(InsertDialog, self).__init__(*args, **kwargs)
         self.setWindowIcon(QIcon("icon/note.png"))
         
         # Botão registrar.

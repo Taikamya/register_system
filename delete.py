@@ -1,11 +1,12 @@
+import sys
+import os
+import time
+
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+# from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtPrintSupport import *
-import sys
-import time
-import os
 
 
 """
@@ -14,13 +15,13 @@ import os
     - def: __init__
         :param: self
         :param: *args
-        :param: **kargs
+        :param: **kwargs
     - def: delete_student
         :param: self
 """
 class DeleteDialog(QDialog):
-    def __init__(self, *args, **kargs):
-        super(DeleteDialog, self).__init__(*args, **kargs)
+    def __init__(self, *args, **kwargs):
+        super(DeleteDialog, self).__init__(*args, **kwargs)
         self.setWindowIcon(QIcon("icon/note.png"))
         
         # Botão deletar.
@@ -52,7 +53,6 @@ class DeleteDialog(QDialog):
         self.setLayout(layout)
 
     def delete_student(self):
-        #from db import ConnectionDB
         delete_row = ""
         delete_row = self.deleteInput.text()
-        #ConnectionDB().delete_one_student(delete_row)
+        # ConnectionDB().delete_one_student(delete_row)

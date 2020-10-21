@@ -1,17 +1,22 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys
+import os
+import time
+
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+# from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtPrintSupport import *
-import sys
-import time
-import os
+
 from about import AboutDialog
 from insert import InsertDialog
 from login import LoginForm
 from search import SearchDialog
 from delete import DeleteDialog
-#from db import ConnectionDB
+from db import ConnectionDB
 
 """
     Classe responsável por criar a janela principal.
@@ -19,18 +24,18 @@ from delete import DeleteDialog
     - def: __init__
         :param: self
         :param: *args
-        :param: **kargs
+        :param: **kwargs
     - def: about
         :param: self
 """
 class MainWindow(QMainWindow):
-    def __init__(self, *args, **kargs):
-        super(MainWindow, self).__init__(*args, **kargs)
+    def __init__(self, *args, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
         self.setWindowIcon(QIcon("icon/book.png"))
 
         # Botões da barra de ferramentas.
-        file_menu = self.menuBar().addMenu("&File")
-        help_menu = self.menuBar().addMenu("&Help")
+        file_menu = self.menuBar().addMenu("&Arquivo")
+        help_menu = self.menuBar().addMenu("&Ajuda")
         self.setWindowTitle("Cadastro de alunos")
         # Tamanho default da janela.
         self.setMinimumSize(800,600)
@@ -63,7 +68,7 @@ class MainWindow(QMainWindow):
         self.setStatusBar(status_bar)
 
         #######################
-        #   Botões de acões.  #
+        #   Botões de ações.  #
         #######################
 
         # Botão de login de usuário.
@@ -73,7 +78,7 @@ class MainWindow(QMainWindow):
         toolbar.addAction(btn_ac_loginUser)
 
         # Botão de adicionar usuário.
-        btn_ac_addUser = QAction(QIcon("icon/add1.png"), "Add Aluno", self)
+        btn_ac_addUser = QAction(QIcon("icon/add1.png"), "Adicionar Aluno", self)
         btn_ac_addUser.triggered.connect(self.insert)
         btn_ac_addUser.setStatusTip("Add Aluno")
         toolbar.addAction(btn_ac_addUser)
@@ -86,7 +91,7 @@ class MainWindow(QMainWindow):
         # Botão de pesquisar usuário.
         btn_ac_search = QAction(QIcon("icon/search.png"), "Pesquisar Aluno", self)
         # ToDo: testar o sqlite3 na minha própria máquina, pois nessa aqui não está a funcionar.
-        #btn_ac_search.triggered.connect(ConnectionDB.select_one_student(number))
+        # btn_ac_search.triggered.connect(ConnectionDB().select_one_student(number))
         btn_ac_search.triggered.connect(self.search)
         btn_ac_search.setStatusTip("Pesquisar Aluno")
         toolbar.addAction(btn_ac_search)
@@ -96,6 +101,12 @@ class MainWindow(QMainWindow):
         btn_ac_delete.triggered.connect(self.delete)
         btn_ac_delete.setStatusTip("Deletar Aluno")
         toolbar.addAction(btn_ac_delete)
+
+        # Botão de fechar.
+        btn_ac_quit = QAction(QIcon("icon/exit.png"), "Sair", self)
+        btn_ac_quit.triggered.connect(self.quit)
+        btn_ac_quit.setStatusTip("Fechar Programa")
+        toolbar.addAction(btn_ac_quit)
 
         #####################
         #   Barra de menu.  #
@@ -107,13 +118,13 @@ class MainWindow(QMainWindow):
         file_menu.addAction(login_user_action)
 
         # Botão de adicionar usuário.
-        add_user_action = QAction(QIcon("icon/add1.png"), "Add Aluno", self)
+        add_user_action = QAction(QIcon("icon/add1.png"), "Adicionar Aluno", self)
         add_user_action.triggered.connect(self.insert)
         file_menu.addAction(add_user_action)
 
         # Botão de atualizar usuário.
         refresh_user_action = QAction(QIcon("icon/refresh.png"), "Atualizar Aluno", self)
-    #refresh_user_action.triggered.connect(self.refresh)
+        # refresh_user_action.triggered.connect(self.refresh)
         file_menu.addAction(btn_ac_refresh)
 
         # Botão de pesquisar usuário.
@@ -126,8 +137,13 @@ class MainWindow(QMainWindow):
         delete_user_action.triggered.connect(self.delete)
         file_menu.addAction(delete_user_action)
 
-        # Botão de deletar usuário.
-        about_action = QAction(QIcon("icon/data.png"), "Developer", self)
+        # Botão de sair.
+        quit_action = QAction(QIcon("icon/exit.png"), "Sair", self)
+        quit_action.triggered.connect(self.quit)
+        file_menu.addAction(quit_action)
+
+        # Botão sobre o desenvolvedor.
+        about_action = QAction(QIcon("icon/data.png"), "Desenvolvedor", self)
         about_action.triggered.connect(self.about)
         help_menu.addAction(about_action)
 
@@ -140,20 +156,23 @@ class MainWindow(QMainWindow):
         dlg.exec_()
     
     def search(self):
-        dlg = SearchDialog() #.search_student()
+        dlg = SearchDialog() # .search_student()
         dlg.exec_()
 
     def delete(self):
-        dlg = DeleteDialog() #.delete_student()
+        dlg = DeleteDialog() # .delete_student()
         dlg.exec_()
 
     def about(self):
         dlg = AboutDialog()
         dlg.exec_()
 
-    """def connection(self):
+    def connection(self):
         dlg = ConnectionDB()
-        dlg.exec_()"""
+        dlg.exec_()
+
+    def quit(self):
+        return sys.exit()
 
 
 if __name__ == "__main__":
@@ -161,5 +180,5 @@ if __name__ == "__main__":
     if (QDialog.Accepted == True):
         window = MainWindow()
         window.show()
-        #window.ConnectionDB().load_data()
-sys.exit(app.exec_())
+        # window.ConnectionDB().load_data() # Não precisa chamar isso aqui.
+    sys.exit(app.exec_())

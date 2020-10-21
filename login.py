@@ -1,16 +1,16 @@
-"""""
-    Aqui será criada a tela de login.
-    A verificação será feita no main.py, caso o login == False, ele abre a jánela de login.
-"""
+import sys
+import os
+import time
+
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+# from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtPrintSupport import *
-import sys
-import time
-import os
 
+""""
+    Aqui é criada a tela de login.
+"""
 
 """
     Classe responsável por criar a janela de login.
@@ -18,13 +18,13 @@ import os
     - def: __init__
         :param: self
         :param: *args
-        :param: **kargs
+        :param: **kwargs
     - def: check_password
         :param: self
 """
 class LoginForm(QDialog):
-    def __init__(self, *args, **kargs):
-        super(LoginForm, self).__init__(*args, **kargs)
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
         self.setWindowIcon(QIcon("icon/login_icon.png"))
 
         # Botão deletar.
@@ -33,8 +33,7 @@ class LoginForm(QDialog):
 
         # Janela de login
         self.setWindowTitle("Login")
-        self.setFixedWidth(300)
-        self.setFixedHeight(200)
+        self.setFixedSize(300, 200)
 
         # Conexão.
         self.QBtn.clicked.connect(self.check_password)
@@ -43,15 +42,18 @@ class LoginForm(QDialog):
         layout = QVBoxLayout()
 
         # Local onde se coloca o usuário.
-        label_name = QLabel('<font size="4"> Username </font>')
+        label_name = QLabel('<font size="4"> Usuário </font>')
         self.lineEdit_username = QLineEdit()
         self.lineEdit_username.setPlaceholderText("Digite seu nome de usuário")
+        self.lineEdit_username.setMaxLength(20) # Limite máximo de 30 chars para o nome de usuário
         layout.addWidget(label_name)
         layout.addWidget(self.lineEdit_username)
 
         # Layout para password.
-        label_password = QLabel('<font size="4"> Password </font>')
+        label_password = QLabel('<font size="4"> Senha </font>')
         self.lineEdit_password = QLineEdit()
+        self.lineEdit_password.setMaxLength(20) # Limite máximo de 20 chars para a senha
+        self.lineEdit_password.setEchoMode(3) # EchoMode configurado para modo "PasswordOnEchoEdit" (esconde a senha após a digitação) 
         self.lineEdit_password.setPlaceholderText("Digite sua palavra-passe")
         layout.addWidget(label_password)
         layout.addWidget(self.lineEdit_password)
@@ -62,13 +64,14 @@ class LoginForm(QDialog):
     # Checagem de password, a ser corrigida para verificar os passwords e usernames no DB.
     def check_password(self):
         msg = QMessageBox()
-
+        msg.setFixedSize(130, 100)
+        
         if self.lineEdit_username.text() == "Username" and self.lineEdit_password.text() == "000":
             msg.setWindowIcon(QIcon("icon/done.png"))
             msg.setWindowTitle("Efetuado")
             msg.setText("Sucesso")
             msg.exec_()
-            app.quit()
+            msg.close()
         else:
             msg.setWindowIcon(QIcon("icon/failure.png"))
             msg.setWindowTitle("Não efetuado")

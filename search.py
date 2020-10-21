@@ -1,12 +1,13 @@
+import sys
+import os
+import time
+
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+# from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtPrintSupport import *
-import sys
-import time
-import os
-#from db import ConnectionDB
+from db import ConnectionDB
 
 
 """
@@ -15,13 +16,13 @@ import os
     - def: __init__
         :param: self
         :param: *args
-        :param: **kargs
+        :param: **kwargs
     - def: search_student
         :param: self
 """
 class SearchDialog(QDialog):
-    def __init__(self, *args, **kargs):
-        super(SearchDialog, self).__init__(*args, **kargs)
+    def __init__(self, *args, **kwargs):
+        super(SearchDialog, self).__init__(*args, **kwargs)
         self.setWindowIcon(QIcon("icon/computer.png"))
 
         # Botão pesquisar.
@@ -53,7 +54,6 @@ class SearchDialog(QDialog):
         self.setLayout(layout)
 
     def search_student(self):
-        #from db import ConnectionDB
         search_row = ""
         search_row = self.searchInput.text()
-        #ConnectionDB().load_one_student(search_row)
+        # ConnectionDB().load_one_student(search_row)
