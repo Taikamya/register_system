@@ -45,7 +45,7 @@ class LoginForm(QDialog):
         label_name = QLabel('<font size="4"> Usuário </font>')
         self.lineEdit_username = QLineEdit()
         self.lineEdit_username.setPlaceholderText("Digite seu nome de usuário")
-        self.lineEdit_username.setMaxLength(20) # Limite máximo de 30 chars para o nome de usuário
+        self.lineEdit_username.setMaxLength(20) # Limite máximo de 20 chars para o nome de usuário
         layout.addWidget(label_name)
         layout.addWidget(self.lineEdit_username)
 

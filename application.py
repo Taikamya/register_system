@@ -17,6 +17,7 @@ from login import LoginForm
 from search import SearchDialog
 from delete import DeleteDialog
 from db import ConnectionDB
+# from modules.database import *
 
 """
     Classe responsável por criar a janela principal.
@@ -34,7 +35,8 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon("icon/book.png"))
 
         # Botões da barra de ferramentas.
-        file_menu = self.menuBar().addMenu("&Arquivo")
+        # file_menu = self.menuBar().addMenu("&Arquivo")
+        lang_menu = self.menuBar().addMenu("&Idioma")
         help_menu = self.menuBar().addMenu("&Ajuda")
         self.setWindowTitle("Cadastro de alunos")
         # Tamanho default da janela.
@@ -67,9 +69,9 @@ class MainWindow(QMainWindow):
         status_bar = QStatusBar()
         self.setStatusBar(status_bar)
 
-        #######################
-        #   Botões de ações.  #
-        #######################
+        ###################################
+        #   Botões na barra de tarefas.  #
+        ###################################
 
         # Botão de login de usuário.
         btn_ac_loginUser = QAction(QIcon("icon/login.png"), "Login", self)
@@ -108,47 +110,66 @@ class MainWindow(QMainWindow):
         btn_ac_quit.setStatusTip("Fechar Programa")
         toolbar.addAction(btn_ac_quit)
 
-        #####################
-        #   Barra de menu.  #
-        #####################
+        #########################
+        #   Menu com dropdown.  #
+        #########################
         
-        # Botão de login de usuário.
-        login_user_action = QAction(QIcon("icon/login.png"), "Login", self)
-        login_user_action.triggered.connect(self.login)
-        file_menu.addAction(login_user_action)
+        # # Botão de login de usuário.
+        # login_user_action = QAction(QIcon("icon/login.png"), "Login", self)
+        # login_user_action.triggered.connect(self.login)
+        # file_menu.addAction(login_user_action)
 
-        # Botão de adicionar usuário.
-        add_user_action = QAction(QIcon("icon/add1.png"), "Adicionar Aluno", self)
-        add_user_action.triggered.connect(self.insert)
-        file_menu.addAction(add_user_action)
+        # # Botão de adicionar usuário.
+        # add_user_action = QAction(QIcon("icon/add1.png"), "Adicionar Aluno", self)
+        # add_user_action.triggered.connect(self.insert)
+        # file_menu.addAction(add_user_action)
 
-        # Botão de atualizar usuário.
-        refresh_user_action = QAction(QIcon("icon/refresh.png"), "Atualizar Aluno", self)
-        # refresh_user_action.triggered.connect(self.refresh)
-        file_menu.addAction(btn_ac_refresh)
+        # # Botão de atualizar usuário.
+        # refresh_user_action = QAction(QIcon("icon/refresh.png"), "Atualizar Aluno", self)
+        # # refresh_user_action.triggered.connect(self.refresh)
+        # file_menu.addAction(btn_ac_refresh)
 
-        # Botão de pesquisar usuário.
-        search_user_action = QAction(QIcon("icon/search.png"), "Pesquisar Aluno", self)
-        search_user_action.triggered.connect(self.search)
-        file_menu.addAction(search_user_action)
+        # # Botão de pesquisar usuário.
+        # search_user_action = QAction(QIcon("icon/search.png"), "Pesquisar Aluno", self)
+        # search_user_action.triggered.connect(self.search)
+        # file_menu.addAction(search_user_action)
 
-        # Botão de deletar usuário.
-        delete_user_action = QAction(QIcon("icon/delete.png"), "Deletar Aluno", self)
-        delete_user_action.triggered.connect(self.delete)
-        file_menu.addAction(delete_user_action)
+        # # Botão de deletar usuário.
+        # delete_user_action = QAction(QIcon("icon/delete.png"), "Deletar Aluno", self)
+        # delete_user_action.triggered.connect(self.delete)
+        # file_menu.addAction(delete_user_action)
 
-        # Botão de sair.
-        quit_action = QAction(QIcon("icon/exit.png"), "Sair", self)
-        quit_action.triggered.connect(self.quit)
-        file_menu.addAction(quit_action)
+        # # Botão de sair.
+        # quit_action = QAction(QIcon("icon/exit.png"), "Sair", self)
+        # quit_action.triggered.connect(self.quit)
+        # file_menu.addAction(quit_action)
 
         # Botão sobre o desenvolvedor.
         about_action = QAction(QIcon("icon/data.png"), "Desenvolvedor", self)
         about_action.triggered.connect(self.about)
         help_menu.addAction(about_action)
 
+        # Botão para seleção de idioma. PT
+        lang_action_pt = QAction(QIcon("icon/portugal.png"), "Portugués", self)
+        lang_action_pt.triggered.connect(self.language)
+        lang_menu.addAction(lang_action_pt)
+
+        # Botão para seleção de idioma. ES
+        lang_action_es = QAction(QIcon("icon/spain.png"), "Español", self)
+        lang_action_es.triggered.connect(self.language)
+        lang_menu.addAction(lang_action_es)
+
+        # Botão para seleção de idioma. US
+        lang_action_us = QAction(QIcon("icon/us-america.png"), "English", self)
+        lang_action_us.triggered.connect(self.language)
+        lang_menu.addAction(lang_action_us)
+
     def login(self):
         dlg = LoginForm()
+        dlg.exec_()
+
+    def connection(self):
+        dlg = ConnectionDB()
         dlg.exec_()
 
     def insert(self):
@@ -162,13 +183,12 @@ class MainWindow(QMainWindow):
     def delete(self):
         dlg = DeleteDialog() # .delete_student()
         dlg.exec_()
+    
+    def language(self):
+        pass
 
     def about(self):
         dlg = AboutDialog()
-        dlg.exec_()
-
-    def connection(self):
-        dlg = ConnectionDB()
         dlg.exec_()
 
     def quit(self):
