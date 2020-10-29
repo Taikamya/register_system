@@ -1,16 +1,11 @@
-import sys
-import os
-import time
-
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-# from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtPrintSupport import *
 
 
 """
-    Classe responsável por criar a janela de sobre.
+    Classe responsável por criar a janela de registro.
 
     - def: __init__
         :param: self
@@ -40,11 +35,39 @@ class InsertDialog(QDialog):
         layout = QVBoxLayout()
 
         # Caixa de texto do nome.
-        label_name = QLabel('<font size="4"> Nome </font>')
-        self.nameInput = QLineEdit()
-        self.nameInput.setPlaceholderText("Nome")
-        layout.addWidget(label_name)
-        layout.addWidget(self.nameInput)
+        label_first_name = QLabel('<font size="4"> Nome </font>')
+        self.first_nameInput = QLineEdit()
+        self.first_nameInput.setPlaceholderText("Nome")
+        layout.addWidget(label_first_name)
+        layout.addWidget(self.first_nameInput)
+
+        # Caixa de texto do nome do meio.
+        label_middle_name = QLabel('<font size="4"> Nome do Meio </font>')
+        self.middle_nameInput = QLineEdit()
+        self.middle_nameInput.setPlaceholderText("Nome do Meio")
+        layout.addWidget(label_middle_name)
+        layout.addWidget(self.middle_nameInput)
+
+        # Caixa de texto do apelido.
+        label_last_name = QLabel('<font size="4"> Apelido </font>')
+        self.last_nameInput = QLineEdit()
+        self.last_nameInput.setPlaceholderText("Apelido")
+        layout.addWidget(label_last_name)
+        layout.addWidget(self.last_nameInput)
+
+        # Caixa de texto para o email.
+        label_email = QLabel('<font size="4"> E-Mail </font>')
+        self.emailInput = QLineEdit()
+        self.emailInput.setPlaceholderText("E-Mail")
+        layout.addWidget(label_email)
+        layout.addWidget(self.emailInput)
+
+        # Caixa de texto para o email.
+        # label_enrolled = QLabel('<font size="4"> Matriculado </font>')
+        self.enrolled = QCheckBox(text="Matriculado")
+        self.enrolled.setTristate(False)
+        # layout.addWidget(label_enrolled)
+        layout.addWidget(self.enrolled)
 
         # Combo Box.
         label_course = QLabel('<font size="4"> Curso </font>')
@@ -94,14 +117,26 @@ class InsertDialog(QDialog):
         self.setLayout(layout)
 
     def add_student(self):
-        name = ""
+        first_name = ""
+        middle_name = ""
+        last_name = ""
+        email = ""
+        is_enrolled = False
         course = ""
-        sem = -1
+        semester = -1
         tel = ""
         address = ""
 
-        name = self.nameInput.text()
+        first_name = self.first_nameInput.text()
+        middle_name = self.middle_nameInput.text()
+        last_name = self.last_nameInput.text()
+        email = self.emailInput.text()
         course = self.courseInput.itemText(self.courseInput.currentIndex())
-        sem = self.semInput.itemText(self.semInput.currentIndex())
+        semester = self.semInput.itemText(self.semInput.currentIndex())
         tel = self.telInput.text()
         address = self.addressInput.text()
+
+        if self.enrolled.isTristate() == False:
+            return self.enrolled.setCheckState(0)
+        else:
+            return self.enrolled.setCheckState(2)

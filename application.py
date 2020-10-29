@@ -2,13 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import os
-import time
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-# from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtPrintSupport import *
 
 from about import AboutDialog
@@ -17,7 +14,6 @@ from login import LoginForm
 from search import SearchDialog
 from delete import DeleteDialog
 from db import ConnectionDB
-# from modules.database import *
 
 """
     Classe responsável por criar a janela principal.
@@ -55,7 +51,7 @@ class MainWindow(QMainWindow):
         self.tableWidget.verticalHeader().setCascadingSectionResizes(False)
         self.tableWidget.verticalHeader().setStretchLastSection(False)
 
-        self.tableWidget.setHorizontalHeaderLabels(("Inscrição nº", "Nome", "Filial", "Semestre", "Telefone", "Endereço"))
+        self.tableWidget.setHorizontalHeaderLabels(("Inscrição nº", "Nome", "E-Mail", "Curso", "Semestre", "Telefone", "Endereço"))
 
         # Inclusão de botões.
         toolbar = QToolBar()
@@ -109,40 +105,6 @@ class MainWindow(QMainWindow):
         btn_ac_quit.triggered.connect(self.quit)
         btn_ac_quit.setStatusTip("Fechar Programa")
         toolbar.addAction(btn_ac_quit)
-
-        #########################
-        #   Menu com dropdown.  #
-        #########################
-        
-        # # Botão de login de usuário.
-        # login_user_action = QAction(QIcon("icon/login.png"), "Login", self)
-        # login_user_action.triggered.connect(self.login)
-        # file_menu.addAction(login_user_action)
-
-        # # Botão de adicionar usuário.
-        # add_user_action = QAction(QIcon("icon/add1.png"), "Adicionar Aluno", self)
-        # add_user_action.triggered.connect(self.insert)
-        # file_menu.addAction(add_user_action)
-
-        # # Botão de atualizar usuário.
-        # refresh_user_action = QAction(QIcon("icon/refresh.png"), "Atualizar Aluno", self)
-        # # refresh_user_action.triggered.connect(self.refresh)
-        # file_menu.addAction(btn_ac_refresh)
-
-        # # Botão de pesquisar usuário.
-        # search_user_action = QAction(QIcon("icon/search.png"), "Pesquisar Aluno", self)
-        # search_user_action.triggered.connect(self.search)
-        # file_menu.addAction(search_user_action)
-
-        # # Botão de deletar usuário.
-        # delete_user_action = QAction(QIcon("icon/delete.png"), "Deletar Aluno", self)
-        # delete_user_action.triggered.connect(self.delete)
-        # file_menu.addAction(delete_user_action)
-
-        # # Botão de sair.
-        # quit_action = QAction(QIcon("icon/exit.png"), "Sair", self)
-        # quit_action.triggered.connect(self.quit)
-        # file_menu.addAction(quit_action)
 
         # Botão sobre o desenvolvedor.
         about_action = QAction(QIcon("icon/data.png"), "Desenvolvedor", self)
