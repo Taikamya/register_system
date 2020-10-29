@@ -1,5 +1,5 @@
 # _author = Dimitri Dias Moreira
-# _version = 0.0.1_100 (Oct 21th, 2020)
+# _version = 0.0.2_200 (Oct 26th, 2020)
 
 '''
 Em construção desde 21/10/2020
@@ -50,7 +50,7 @@ def search_student_by_name(name=""):
 def insert_student(name, course, enrolled, semester, telephone, address):
     conn = sqlite3.connect("register.db")
     c = conn.cursor()
-    c.execute("INSERT INTO students VALUES (NULL, ?, ?, ?, ?, ?, ?)", (name, course, enrolled, semester, telephone, address))
+    c.execute("INSERT INTO students VALUES (NULL, ?, ?, ?, ?, ?, ?)", (name, course, enrolled, semester, telephone, address,))
     conn.commit()
     conn.close()
 
@@ -58,7 +58,7 @@ def insert_student(name, course, enrolled, semester, telephone, address):
 def update_student(id, name, course, enrolled, semester, telephone, address):
     conn = sqlite3.connect("register.db")
     c = conn.cursor()
-    c.execute("UPDATE students SET name=?, course=?, enrolled=?, semester=?, telephone=?, address=? WHERE id=?", (name, course, enrolled, semester, telephone, address, id))
+    c.execute("UPDATE students SET name=?, course=?, enrolled=?, semester=?, telephone=?, address=? WHERE id=?", (name, course, enrolled, semester, telephone, address, id,))
     conn.commit()
     conn.close()
 
